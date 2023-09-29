@@ -1,2 +1,2 @@
 run-test:
-	k6 run --vus 250000000 --duration 4000s script.js
+	k6 run --vus 250 --duration 40s script.js
