@@ -14,11 +14,11 @@ function generateRandomString(length) {
   return randomString;
 }
 
-function runLogin(baseURL) {
+function runLogin(baseURL, name, password) {
   const url = baseURL+'/api/user/login';
   const payload = JSON.stringify({
-    name: 'ahmed rizandy',
-    password: 'zxcvbnm0'
+    name: name,
+    password: password
   });
 
   const headers = {
@@ -33,12 +33,12 @@ function runLogin(baseURL) {
   const response = http.post(url, payload, { headers });
 }
 
-function runRegister(baseURL) {
+function runRegister(baseURL, name, email, password) {
   const url = baseURL + '/api/user/register';
   const payload = JSON.stringify({
-    name: generateRandomString(10),
-    email: generateRandomString(10)+"@email.com",
-    password: generateRandomString(10),
+    name: name,
+    email: email,
+    password: password,
   });
 
   const headers = {
@@ -55,10 +55,14 @@ function runRegister(baseURL) {
 
 export default function () {
   http.get("http://119.81.37.228:8080/api/catalogue/categories");
-  runLogin(vmURL);
-  runLogin(kubeURL)
-  runRegister(vmURL);
-  runRegister(kubeURL);
+
+  let name = generateRandomString(10);
+  let email = generateRandomString(10)+"@email.com";
+  let password = generateRandomString(10);
+  runLogin(vmURL, name, password);
+  runLogin(kubeURL, name, password)
+  runRegister(vmURL, name, email, password);
+  runRegister(kubeURL, name, email, password);
   sleep(1);
 }
 
